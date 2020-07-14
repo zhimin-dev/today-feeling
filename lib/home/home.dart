@@ -20,14 +20,28 @@ class _Home extends State<Home> {
             Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
                         Container(
-                          child: Text("星期二"),
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "星期二",
+                            textScaleFactor: 1.5,
+                            textAlign: TextAlign.left,
+                            style:
+                                TextStyle(color: Color.fromARGB(217, 0, 0, 0)),
+                          ),
                         ),
                         Container(
-                          child: Text("2020年7月13日"),
+                          child: Text(
+                            "2020年7月13日",
+                            textAlign: TextAlign.left,
+                            textScaleFactor: 1.1,
+                            style:
+                                TextStyle(color: Color.fromARGB(64, 0, 0, 0)),
+                          ),
                         )
                       ],
                     ),
@@ -39,77 +53,168 @@ class _Home extends State<Home> {
                     )
                   ],
                 ),
-                Row(
-                  children: [
-                    Container(
-                      child: Image.asset(
-                        "assets/images/icon-avatar.png",
-                        width: 40,
+                Container(
+                  margin: EdgeInsets.only(top: 37, bottom: 22),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: Image.asset(
+                          "assets/images/icon-avatar.png",
+                          width: 40,
+                        ),
                       ),
-                    ),
-                    Column(
-                      children: [Text("你好，zm"), Text("今天过得怎么样")],
-                    )
-                  ],
+                      Column(
+                        children: [
+                          Text.rich(TextSpan(children: [
+                            TextSpan(
+                                text: "你好, ",
+                                style: TextStyle(
+                                    color: Color.fromARGB(64, 0, 0, 0),
+                                    fontSize: 18)),
+                            TextSpan(
+                                text: "zm",
+                                style: TextStyle(
+                                    color: Color.fromARGB(64, 0, 0, 0),
+                                    fontSize: 16))
+                          ])),
+                          Text(
+                            "今天过得怎么样?",
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Column(
                       children: [
-                        FlatButton(
-                          onPressed: () {},
-                          color: Colors.blue,
-                          highlightColor: Colors.blue[700],
-                          colorBrightness: Brightness.dark,
-                          splashColor: Colors.grey,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/images/icon-happy.png",
-                                width: 20,
+                        Container(
+                            width: 200,
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: FlatButton(
+                              onPressed: () {},
+                              color: Color.fromARGB(256, 248, 248, 248),
+                              highlightColor: Colors.grey,
+                              colorBrightness: Brightness.dark,
+                              splashColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10),
+                                            child: Image.asset(
+                                              "assets/images/icon-happy.png",
+                                              width: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            "很不错",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    217, 0, 0, 0)),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text("很不错")
-                            ],
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
-                        ),
-                        FlatButton(
-                          onPressed: () {},
-                          color: Colors.blue,
-                          highlightColor: Colors.blue[700],
-                          colorBrightness: Brightness.dark,
-                          splashColor: Colors.grey,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/images/icon-normal.png",
-                                width: 20,
+                            )),
+                        Container(
+                            width: 200,
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: FlatButton(
+                              onPressed: () {},
+                              color: Color.fromARGB(256, 248, 248, 248),
+                              highlightColor: Colors.grey,
+                              colorBrightness: Brightness.dark,
+                              splashColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10),
+                                            child: Image.asset(
+                                              "assets/images/icon-normal.png",
+                                              width: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            "一般般",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    217, 0, 0, 0)),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text("很一般")
-                            ],
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
-                        ),
-                        FlatButton(
-                          onPressed: () {},
-                          color: Colors.blue,
-                          highlightColor: Colors.blue[700],
-                          colorBrightness: Brightness.dark,
-                          splashColor: Colors.grey,
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                "assets/images/icon-sad.png",
-                                width: 20,
+                            )),
+                        Container(
+                            width: 200,
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: FlatButton(
+                              onPressed: () {},
+                              color: Color.fromARGB(256, 248, 248, 248),
+                              highlightColor: Colors.grey,
+                              colorBrightness: Brightness.dark,
+                              splashColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(right: 10),
+                                            child: Image.asset(
+                                              "assets/images/icon-sad.png",
+                                              width: 20,
+                                            ),
+                                          ),
+                                          Text(
+                                            "不太好",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    217, 0, 0, 0)),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text("不太好")
-                            ],
-                          ),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
-                        )
+                            ))
                       ],
                     )
                   ],
