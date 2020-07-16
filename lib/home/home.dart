@@ -10,10 +10,17 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    double paddingRight = 30 / 1.0;
+    double paddingLeft = 30 / 1.0;
+    double width = size.width / 1.0;
+    double height = size.height / 1.0;
+    double paddingTop = 69.0;
     return Scaffold(
         body: SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(left: 30, top: 69, right: 31.6),
+        padding: EdgeInsets.only(
+            left: paddingLeft, top: paddingTop, right: paddingRight),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -93,7 +100,7 @@ class _Home extends State<Home> {
                     Column(
                       children: [
                         Container(
-                            width: 200,
+                            width: width - paddingRight - paddingLeft,
                             height: 50,
                             alignment: Alignment.center,
                             child: FlatButton(
@@ -134,7 +141,7 @@ class _Home extends State<Home> {
                               ),
                             )),
                         Container(
-                            width: 200,
+                            width: width - paddingRight - paddingLeft,
                             height: 50,
                             alignment: Alignment.center,
                             child: FlatButton(
@@ -175,7 +182,7 @@ class _Home extends State<Home> {
                               ),
                             )),
                         Container(
-                            width: 200,
+                            width: width - paddingRight - paddingLeft,
                             height: 50,
                             alignment: Alignment.center,
                             child: FlatButton(
