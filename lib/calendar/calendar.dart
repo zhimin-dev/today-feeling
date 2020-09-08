@@ -8,15 +8,26 @@ class Calendar extends StatefulWidget {
   _Calendar createState() => new _Calendar();
 }
 
+class OneMood {
+  int day;
+  String content;
+  int feeling;
+  OneMood(this.day, this.content, this.feeling);
+}
+
 class _Calendar extends State<Calendar> {
   ValueNotifier<String> text;
   ValueNotifier<String> selectText;
-
+  DateModel _selectDate;
   CalendarController controller;
+
+  // Map<int, OneMood> myMoods = new Map();
+  // myMoods[20200916] = new OneMood(20200916, "xxxxx", 1);
 
   @override
   void initState() {
     super.initState();
+    _selectDate = DateModel.fromDateTime(DateTime.now());
     controller = new CalendarController(
       selectMode: CalendarConstants.MODE_MULTI_SELECT,
       minSelectYear: 2019,
@@ -24,7 +35,7 @@ class _Calendar extends State<Calendar> {
       maxSelectYear: 2020,
       maxSelectMonth: 12,
       maxMultiSelectCount: 999999999999999999,
-      selectedDateTimeList: {DateTime.now(), new DateTime(2020, 7, 16, 0, 0)},
+      selectedDateTimeList: {DateTime.now(), new DateTime(2020, 9, 16, 0, 0)},
     );
 
     controller.addMonthChangeListener(
@@ -35,9 +46,9 @@ class _Calendar extends State<Calendar> {
 
     controller.addOnCalendarSelectListener((dateModel) {
       if (dateModel.isCurrentMonth) {
-        //刷新选择的时间
-        selectText.value =
-            "单选模式\n选中的时间:\n${controller.getSingleSelectCalendar()}";
+        setState(() {
+          _selectDate = dateModel;
+        });
       }
     });
 
@@ -90,6 +101,9 @@ class _Calendar extends State<Calendar> {
               dayWidgetBuilder: (dateModel) {
                 return DefaultCombineDayWidget(dateModel);
               }),
+          Container(
+            child: Text("${_selectDate.getDateTime()}"),
+          )
         ],
       ),
     ));
@@ -147,22 +161,29 @@ class DefaultCombineDayWidget extends BaseCombineDayWidget {
   @override
   Widget getSelectedWidget(DateModel dateModel) {
     if (dateModel.isCurrentMonth) {
-      if (dateModel.isSelected) {
-        return Container(
-          child: Image.asset(
-            "assets/images/icon-happy.png",
-            width: 10,
-          ),
-          padding: EdgeInsets.all(3),
-          margin: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-                color: Colors.blue, width: 5, style: BorderStyle.solid),
-            shape: BoxShape.circle,
-          ),
-        );
-      }
+      // if (dateModel.isSelected) {
+      //   return Container(
+      //     child: Image.asset(
+      //       "assets/images/icon-happy.png",
+      //       width: 20,
+      //     ),
+      //     padding: EdgeInsets.all(3),
+      //     margin: EdgeInsets.all(5),
+      //     decoration: BoxDecoration(
+      //       color: Colors.white,
+      //       border: Border.all(
+      //           color: Colors.blue, width: 5, style: BorderStyle.solid),
+      //       shape: BoxShape.circle,
+      //     ),
+      //   );
+      // }
+      return Container(
+        alignment: Alignment.center,
+        child: Image.asset(
+          "assets/images/icon-date-passed.png",
+          width: 20,
+        ),
+      );
     }
     return Text("");
   }

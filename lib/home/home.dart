@@ -161,9 +161,8 @@ class _Home extends State<Home> {
                                 child: FlatButton(
                                   onPressed: () {},
                                   color: Color.fromARGB(100, 200, 200, 200),
-                                  highlightColor: Colors.grey,
-                                  colorBrightness: Brightness.dark,
-                                  splashColor: Colors.grey,
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
@@ -201,14 +200,13 @@ class _Home extends State<Home> {
                             Container(
                                 width: width - paddingRight - paddingLeft,
                                 height: 50,
-                                margin: EdgeInsets.only(top: 10),
+                                margin: EdgeInsets.only(top: 20),
                                 alignment: Alignment.center,
                                 child: FlatButton(
                                   onPressed: () {},
                                   color: Color.fromARGB(100, 200, 200, 200),
-                                  highlightColor: Colors.grey,
-                                  colorBrightness: Brightness.dark,
-                                  splashColor: Colors.grey,
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
@@ -245,15 +243,14 @@ class _Home extends State<Home> {
                                 )),
                             Container(
                                 width: width - paddingRight - paddingLeft,
-                                margin: EdgeInsets.only(top: 10),
+                                margin: EdgeInsets.only(top: 20),
                                 height: 50,
                                 alignment: Alignment.center,
                                 child: FlatButton(
                                   onPressed: () {},
                                   color: Color.fromARGB(100, 200, 200, 200),
-                                  highlightColor: Colors.grey,
-                                  colorBrightness: Brightness.dark,
-                                  splashColor: Colors.grey,
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.circular(20.0)),
