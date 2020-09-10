@@ -19,12 +19,262 @@ class _Home extends State<Home> {
     double paddingTop = 50.0;
     bool showNotifcation = false;
     String userName = "淼";
+    bool showForm = false;
+    bool showFinish = false;
+    bool showSaving = false;
+    OverlayEntry formOverlayEntry;
+    OverlayEntry finishOverlayEntry;
+    OverlayEntry loadingOverlayEntry;
+    FocusNode _focusNode = new FocusNode();
+
+    Future<Null> _focusNodeListener() async {
+      // 用async的方式实现这个listener
+      if (_focusNode.hasFocus) {
+        print('TextField got the focus');
+      } else {
+        print('TextField lost the focus');
+      }
+    }
+
+    @override
+    void dispose() {
+      _focusNode.removeListener(_focusNodeListener); // 页面消失时必须取消这个listener！！
+      super.dispose();
+    }
 
     String _getNowDayTime() {
       var now = new DateTime.now();
       var formatter = new DateFormat('yyyy年MM月dd日');
       return formatter.format(now);
     }
+
+    final textFiledController = TextEditingController();
+    textFiledController.addListener(() {
+      print('input ${textFiledController.text}');
+    });
+
+    String _getTodayWeater() {
+      return "assets/images/icon-sunny.png";
+    }
+
+    String _getFinishIcon() {
+      return "assets/images/img-succeed.png";
+    }
+
+    //取消按钮
+    void hideTextarea() {
+      if (showForm) {
+        formOverlayEntry.remove();
+        showForm = false;
+      }
+    }
+
+    void test() {
+      showFinish = true;
+      Overlay.of(context).insert(finishOverlayEntry);
+    }
+
+    //保存表单数据
+    void savingForm() {
+      Future.delayed(Duration(seconds: 1), () {
+        if (showSaving) {
+          loadingOverlayEntry.remove();
+          showSaving = false;
+        }
+        Overlay.of(context).insert(finishOverlayEntry);
+        showFinish = true;
+      });
+    }
+
+    //保存按钮
+    void submitTextarea() {
+      if (showForm) {
+        formOverlayEntry.remove();
+        showForm = false;
+        showSaving = true;
+        Overlay.of(context).insert(loadingOverlayEntry);
+        savingForm();
+      }
+    }
+
+    void hideFinishForm() {
+      if (showFinish) {
+        finishOverlayEntry.remove();
+        showFinish = false;
+      }
+    }
+
+    loadingOverlayEntry = new OverlayEntry(builder: (context) {
+      return new ConstrainedBox(
+          constraints: BoxConstraints.expand(),
+          child: Stack(children: [
+            Positioned(
+              child: Material(
+                color: Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+              width: width,
+              height: height,
+            ),
+            Center(
+                child: Text(
+              "保存中...",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ))
+          ]));
+    });
+
+    formOverlayEntry = new OverlayEntry(builder: (context) {
+      return new ConstrainedBox(
+          constraints: BoxConstraints.expand(),
+          child: Stack(
+            children: [
+              Positioned(
+                child: Material(
+                  color: Color.fromRGBO(0, 0, 0, 0.4),
+                ),
+                width: width,
+                height: height,
+              ),
+              Positioned(
+                  bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                      ? MediaQuery.of(context).viewInsets.bottom
+                      : 0,
+                  width: width,
+                  height: 0.5 * height,
+                  child: new SafeArea(
+                      child: new Material(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: paddingLeft, right: paddingRight),
+                      child: new Container(
+                        child: new Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    child: Text("取消"),
+                                    onTap: () => {hideTextarea()},
+                                  ),
+                                  Image.asset(
+                                    _getTodayWeater(),
+                                    width: 30,
+                                  ),
+                                  GestureDetector(
+                                    child: Text(
+                                      "保存",
+                                      style: TextStyle(color: Colors.orange),
+                                    ),
+                                    onTap: () => {submitTextarea()},
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                                child: ConstrainedBox(
+                              constraints:
+                                  BoxConstraints(maxHeight: height - 100),
+                              child: TextField(
+                                focusNode: _focusNode,
+                                controller: textFiledController,
+                                maxLines: 12,
+                                decoration: InputDecoration(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(width: 1),
+                                    ),
+                                    contentPadding: EdgeInsets.all(10.0),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(width: 1),
+                                    )),
+                              ),
+                            )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ))),
+            ],
+          ));
+    });
+
+    //弹出心情form表单
+    void showTextarea() {
+      showForm = true;
+      Overlay.of(context).insert(formOverlayEntry);
+    }
+
+    finishOverlayEntry = new OverlayEntry(builder: (context) {
+      return new ConstrainedBox(
+          constraints: BoxConstraints.expand(),
+          child: Stack(children: [
+            Positioned(
+              child: Material(
+                color: Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+              width: width,
+              height: height,
+            ),
+            Positioned(
+                bottom: 0,
+                width: width,
+                height: 0.5 * height,
+                child: new SafeArea(
+                  child: new Material(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: paddingLeft, right: paddingRight),
+                      child: new Container(
+                        child: new Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 50, bottom: 10),
+                              child: Image.asset(
+                                _getFinishIcon(),
+                                width: 120,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 10),
+                              child: Container(
+                                width: width - paddingRight - paddingLeft,
+                                height: 50,
+                                margin: EdgeInsets.only(top: 30),
+                                alignment: Alignment.center,
+                                child: FlatButton(
+                                  onPressed: () {
+                                    hideFinishForm();
+                                  },
+                                  color: Color.fromARGB(100, 200, 200, 200),
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "太赞了！",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromARGB(217, 0, 0, 0)),
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ))
+          ]));
+    });
 
     String _getTodayWeek() {
       int w = DateTime.now().weekday;
@@ -55,13 +305,10 @@ class _Home extends State<Home> {
       return "星期$str";
     }
 
-    String _getTodayWeater() {
-      return "assets/images/icon-sunny.png";
-    }
-
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: SingleChildScrollView(
+        body: Container(
+            child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
                 left: paddingLeft, top: paddingTop, right: paddingRight),
@@ -159,7 +406,9 @@ class _Home extends State<Home> {
                                 margin: EdgeInsets.only(top: 30),
                                 alignment: Alignment.center,
                                 child: FlatButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    test();
+                                  },
                                   color: Color.fromARGB(100, 200, 200, 200),
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
@@ -203,7 +452,9 @@ class _Home extends State<Home> {
                                 margin: EdgeInsets.only(top: 20),
                                 alignment: Alignment.center,
                                 child: FlatButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showTextarea();
+                                  },
                                   color: Color.fromARGB(100, 200, 200, 200),
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
@@ -294,6 +545,6 @@ class _Home extends State<Home> {
               ],
             ),
           ),
-        ));
+        )));
   }
 }

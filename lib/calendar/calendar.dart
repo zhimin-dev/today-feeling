@@ -13,6 +13,13 @@ class OneMood {
   String content;
   int feeling;
   OneMood(this.day, this.content, this.feeling);
+  GetContent() {
+    return this.content;
+  }
+
+  GetMood() {
+    return this;
+  }
 }
 
 class _Calendar extends State<Calendar> {
@@ -21,12 +28,12 @@ class _Calendar extends State<Calendar> {
   DateModel _selectDate;
   CalendarController controller;
 
-  // Map<int, OneMood> myMoods = new Map();
-  // myMoods[20200916] = new OneMood(20200916, "xxxxx", 1);
+  Map<int, OneMood> myMoods = {20200916: new OneMood(20200916, "xxxxx", 1)};
 
   @override
   void initState() {
     super.initState();
+
     _selectDate = DateModel.fromDateTime(DateTime.now());
     controller = new CalendarController(
       selectMode: CalendarConstants.MODE_MULTI_SELECT,
@@ -102,8 +109,12 @@ class _Calendar extends State<Calendar> {
                 return DefaultCombineDayWidget(dateModel);
               }),
           Container(
-            child: Text("${_selectDate.getDateTime()}"),
-          )
+              child: Column(
+            children: [
+              Text("${_selectDate.getDateTime()}  "),
+              Text("${myMoods[20200916].GetContent()}"),
+            ],
+          ))
         ],
       ),
     ));
@@ -161,29 +172,30 @@ class DefaultCombineDayWidget extends BaseCombineDayWidget {
   @override
   Widget getSelectedWidget(DateModel dateModel) {
     if (dateModel.isCurrentMonth) {
-      // if (dateModel.isSelected) {
-      //   return Container(
-      //     child: Image.asset(
-      //       "assets/images/icon-happy.png",
-      //       width: 20,
-      //     ),
-      //     padding: EdgeInsets.all(3),
-      //     margin: EdgeInsets.all(5),
-      //     decoration: BoxDecoration(
-      //       color: Colors.white,
-      //       border: Border.all(
-      //           color: Colors.blue, width: 5, style: BorderStyle.solid),
-      //       shape: BoxShape.circle,
-      //     ),
-      //   );
-      // }
-      return Container(
-        alignment: Alignment.center,
-        child: Image.asset(
-          "assets/images/icon-date-passed.png",
-          width: 20,
-        ),
-      );
+      if (dateModel.isSelected) {
+        return Container(
+          child: Image.asset(
+            "assets/images/icon-happy.png",
+            width: 20,
+          ),
+          padding: EdgeInsets.all(3),
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+                color: Colors.blue, width: 5, style: BorderStyle.solid),
+            shape: BoxShape.circle,
+          ),
+        );
+      } else {
+        return Container(
+          alignment: Alignment.center,
+          child: Image.asset(
+            "assets/images/icon-date-passed.png",
+            width: 20,
+          ),
+        );
+      }
     }
     return Text("");
   }
