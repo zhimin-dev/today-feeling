@@ -86,20 +86,40 @@ class _Home extends State<Home> {
     loadingOverlayEntry = new OverlayEntry(builder: (context) {
       return new ConstrainedBox(
           constraints: BoxConstraints.expand(),
-          child: Stack(children: [
-            Positioned(
-              child: Material(
-                color: Color.fromRGBO(0, 0, 0, 0.4),
+          child: Stack(
+            children: [
+              Positioned(
+                child: Material(
+                  color: Color.fromRGBO(0, 0, 0, 0.4),
+                ),
+                width: width,
+                height: height,
               ),
-              width: width,
-              height: height,
-            ),
-            Center(
-                child: Text(
-              InputMoodFormSavingText,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ))
-          ]));
+              Positioned(
+                  bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                      ? MediaQuery.of(context).viewInsets.bottom -
+                          MediaQuery.of(context).padding.bottom
+                      : 0,
+                  width: width,
+                  height: 0.4 * height,
+                  child: new Material(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: paddingLeft, right: paddingRight),
+                      child: new Container(
+                        child: Center(
+                          child: Text(InputMoodFormSavingText,
+                              style: TextStyle(fontSize: 16)),
+                        ),
+                      ),
+                    ),
+                  )),
+            ],
+          ));
     });
 
     formOverlayEntry = new OverlayEntry(builder: (context) {

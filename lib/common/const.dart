@@ -27,3 +27,5 @@ const String InputMoodFormSavingText = "保存中...";
 
 const int TabHomeId = 0;
 const int TabCalendarId = 1;
+
+const int splashToHomeTime = 1;

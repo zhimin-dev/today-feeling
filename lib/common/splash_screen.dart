@@ -16,7 +16,7 @@ class SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
 
   startTime() async {
-    var _duration = new Duration(seconds: 3);
+    var _duration = new Duration(seconds: splashToHomeTime);
     return new Timer(_duration, navigationPage);
   }
 
@@ -51,25 +51,28 @@ class SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: 30.0),
-                child: new Image.asset(
-                  DefaultUserIcon,
-                  height: 25.0,
-                  fit: BoxFit.scaleDown,
-                ),
-              )
-            ],
-          ),
-        ],
+      body: Container(
+        width: size.width,
+        height: size.height,
+        child: Material(
+            color: Color.fromRGBO(255, 236, 228, 1),
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    DefaultUserIcon,
+                    width: 40,
+                  ),
+                  Text(
+                    AppTitle,
+                    style: TextStyle(color: Colors.black87, fontSize: 20),
+                  )
+                ],
+              ),
+            )),
       ),
     );
   }

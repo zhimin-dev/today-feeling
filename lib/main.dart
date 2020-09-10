@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         RouterSplasgh: (context) => SplashScreen(),
         RouterHome: (context) => MyHomePage(),
       },
-      initialRoute: RouterHome,
+      initialRoute: RouterSplasgh,
     );
   }
 }
