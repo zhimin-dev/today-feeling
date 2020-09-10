@@ -26,6 +26,7 @@ class _Home extends State<Home> {
     OverlayEntry finishOverlayEntry;
     OverlayEntry loadingOverlayEntry;
     FocusNode _focusNode = new FocusNode();
+    final double bottomPadding = MediaQuery.of(context).padding.bottom;
 
     Future<Null> _focusNodeListener() async {
       // 用async的方式实现这个listener
@@ -137,12 +138,12 @@ class _Home extends State<Home> {
               ),
               Positioned(
                   bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                      ? MediaQuery.of(context).viewInsets.bottom
+                      ? MediaQuery.of(context).viewInsets.bottom -
+                          MediaQuery.of(context).padding.bottom
                       : 0,
                   width: width,
-                  height: 0.5 * height,
-                  child: new SafeArea(
-                      child: new Material(
+                  height: 0.4 * height,
+                  child: new Material(
                     color: Colors.white,
                     child: Padding(
                       padding: EdgeInsets.only(
@@ -196,7 +197,7 @@ class _Home extends State<Home> {
                         ),
                       ),
                     ),
-                  ))),
+                  )),
             ],
           ));
     });
@@ -219,60 +220,57 @@ class _Home extends State<Home> {
               height: height,
             ),
             Positioned(
-                bottom: 0,
-                width: width,
-                height: 0.5 * height,
-                child: new SafeArea(
-                  child: new Material(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          left: paddingLeft, right: paddingRight),
-                      child: new Container(
-                        child: new Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 50, bottom: 10),
-                              child: Image.asset(
-                                _getFinishIcon(),
-                                width: 120,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 10, bottom: 10),
-                              child: Container(
-                                width: width - paddingRight - paddingLeft,
-                                height: 50,
-                                margin: EdgeInsets.only(top: 30),
-                                alignment: Alignment.center,
-                                child: FlatButton(
-                                  onPressed: () {
-                                    hideFinishForm();
-                                  },
-                                  color: Color.fromARGB(100, 200, 200, 200),
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(20.0)),
-                                  child: Container(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "太赞了！",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color:
-                                                Color.fromARGB(217, 0, 0, 0)),
-                                      )),
-                                ),
-                              ),
-                            ),
-                          ],
+              bottom: 0,
+              width: width,
+              height: 0.5 * height,
+              child: new Material(
+                color: Colors.white,
+                child: Padding(
+                  padding:
+                      EdgeInsets.only(left: paddingLeft, right: paddingRight),
+                  child: new Container(
+                    child: new Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(top: 50, bottom: 10),
+                          child: Image.asset(
+                            _getFinishIcon(),
+                            width: 120,
+                          ),
                         ),
-                      ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          child: Container(
+                            width: width - paddingRight - paddingLeft,
+                            height: 50,
+                            margin: EdgeInsets.only(top: 30),
+                            alignment: Alignment.center,
+                            child: FlatButton(
+                              onPressed: () {
+                                hideFinishForm();
+                              },
+                              color: Color.fromARGB(100, 200, 200, 200),
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "太赞了！",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color.fromARGB(217, 0, 0, 0)),
+                                  )),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ))
+                ),
+              ),
+            )
           ]));
     });
 
