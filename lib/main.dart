@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'calendar/calendar.dart';
 import 'home/home.dart';
+import 'common/const.dart';
+import 'common/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,38 +12,41 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'TODAY',
-        theme: ThemeData(
-          primaryColor: Colors.white,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        routes: {
-          "/": (context) => MyHomePage(title: "TODAY"),
-        },
-        initialRoute: "/",
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(builder: (context) {
-            String routeName = settings.name;
-            print("route $routeName");
-          });
-        });
+      title: AppTitle,
+      theme: ThemeData(
+        primaryColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      routes: {
+        RouterSplasgh: (context) => SplashScreen(),
+        RouterHome: (context) => MyHomePage(),
+      },
+      initialRoute: RouterHome,
+    );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int nowTab = 0;
+  int nowTab = TabHomeId;
+  String title = HomeTitle;
+
+  void setAppBarTitle() {
+    if (nowTab == TabCalendarId) {
+      title = CalendarTitle;
+    } else {
+      title = HomeTitle;
+    }
+  }
+
   void _setNowTab(int tabNum) {
     setState(() {
       this.nowTab = tabNum;
+      setAppBarTitle();
     });
   }
 
@@ -53,9 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
   currentPage() {
     switch (nowTab) {
       case 1:
+        setAppBarTitle();
         return new Calendar();
         break;
       default:
+        setAppBarTitle();
         return new Home();
     }
   }
@@ -64,14 +71,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(title),
           actions: <Widget>[
             Row(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(right: 13),
                   child: Image.asset(
-                    "assets/images/icon-share.png",
+                    IconShare,
                     width: 20,
                   ),
                 )
@@ -95,16 +102,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding:
                           const EdgeInsets.only(left: 30, right: 30, top: 12),
                       child: GestureDetector(
-                          onTap: () => {this._setNowTab(0)},
+                          onTap: () => {this._setNowTab(TabHomeId)},
                           child: Column(
                             children: [
-                              this.nowTab == 0
+                              this.nowTab == TabHomeId
                                   ? Image.asset(
-                                      "assets/images/icon-home-selected.png",
+                                      IconTodaySelected,
                                       width: 26,
                                     )
                                   : Image.asset(
-                                      "assets/images/icon-home.png",
+                                      IconTodayUnselected,
                                       width: 26,
                                     )
                             ],
@@ -114,16 +121,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding:
                           const EdgeInsets.only(left: 30, right: 30, top: 12),
                       child: GestureDetector(
-                          onTap: () => {this._setNowTab(1)},
+                          onTap: () => {this._setNowTab(TabCalendarId)},
                           child: Column(
                             children: [
-                              this.nowTab == 1
+                              this.nowTab == TabCalendarId
                                   ? Image.asset(
-                                      "assets/images/icon-calendar-selected.png",
+                                      IconCalendarSelected,
                                       width: 26,
                                     )
                                   : Image.asset(
-                                      "assets/images/icon-calendar.png",
+                                      IconCalendarUnselected,
                                       width: 26,
                                     )
                             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../common/const.dart';
 
 void main() => runApp(Home());
 
@@ -28,21 +29,6 @@ class _Home extends State<Home> {
     FocusNode _focusNode = new FocusNode();
     final double bottomPadding = MediaQuery.of(context).padding.bottom;
 
-    Future<Null> _focusNodeListener() async {
-      // 用async的方式实现这个listener
-      if (_focusNode.hasFocus) {
-        print('TextField got the focus');
-      } else {
-        print('TextField lost the focus');
-      }
-    }
-
-    @override
-    void dispose() {
-      _focusNode.removeListener(_focusNodeListener); // 页面消失时必须取消这个listener！！
-      super.dispose();
-    }
-
     String _getNowDayTime() {
       var now = new DateTime.now();
       var formatter = new DateFormat('yyyy年MM月dd日');
@@ -53,14 +39,6 @@ class _Home extends State<Home> {
     textFiledController.addListener(() {
       print('input ${textFiledController.text}');
     });
-
-    String _getTodayWeater() {
-      return "assets/images/icon-sunny.png";
-    }
-
-    String _getFinishIcon() {
-      return "assets/images/img-succeed.png";
-    }
 
     //取消按钮
     void hideTextarea() {
@@ -118,7 +96,7 @@ class _Home extends State<Home> {
             ),
             Center(
                 child: Text(
-              "保存中...",
+              InputMoodFormSavingText,
               style: TextStyle(color: Colors.white, fontSize: 20),
             ))
           ]));
@@ -145,6 +123,9 @@ class _Home extends State<Home> {
                   height: 0.4 * height,
                   child: new Material(
                     color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30)),
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: paddingLeft, right: paddingRight),
@@ -158,16 +139,16 @@ class _Home extends State<Home> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
-                                    child: Text("取消"),
+                                    child: Text(InputMoodFormCancelText),
                                     onTap: () => {hideTextarea()},
                                   ),
                                   Image.asset(
-                                    _getTodayWeater(),
+                                    IconWeatherSunny,
                                     width: 30,
                                   ),
                                   GestureDetector(
                                     child: Text(
-                                      "保存",
+                                      InputMoodFormCancelSave,
                                       style: TextStyle(color: Colors.orange),
                                     ),
                                     onTap: () => {submitTextarea()},
@@ -222,9 +203,12 @@ class _Home extends State<Home> {
             Positioned(
               bottom: 0,
               width: width,
-              height: 0.5 * height,
+              height: 0.4 * height,
               child: new Material(
                 color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
                 child: Padding(
                   padding:
                       EdgeInsets.only(left: paddingLeft, right: paddingRight),
@@ -234,9 +218,13 @@ class _Home extends State<Home> {
                         Padding(
                           padding: EdgeInsets.only(top: 50, bottom: 10),
                           child: Image.asset(
-                            _getFinishIcon(),
+                            IconPostSuccess,
                             width: 120,
                           ),
+                        ),
+                        Center(
+                          child: Text(InputMoodFormHasRecordedTip,
+                              style: TextStyle(fontSize: 16)),
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 10, bottom: 10),
@@ -249,7 +237,7 @@ class _Home extends State<Home> {
                               onPressed: () {
                                 hideFinishForm();
                               },
-                              color: Color.fromARGB(100, 200, 200, 200),
+                              color: Color.fromRGBO(255, 236, 228, 1),
                               highlightColor: Colors.transparent,
                               splashColor: Colors.transparent,
                               shape: RoundedRectangleBorder(
@@ -257,10 +245,10 @@ class _Home extends State<Home> {
                               child: Container(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "太赞了！",
+                                    IconPostSuccessText,
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Color.fromARGB(217, 0, 0, 0)),
+                                        color: Color.fromRGBO(255, 125, 66, 1)),
                                   )),
                             ),
                           ),
@@ -344,7 +332,7 @@ class _Home extends State<Home> {
                         ),
                         Container(
                           child: Image.asset(
-                            _getTodayWeater(),
+                            IconWeatherSunny,
                             width: 40,
                           ),
                         )
@@ -357,7 +345,7 @@ class _Home extends State<Home> {
                           Container(
                             margin: EdgeInsets.only(right: 10),
                             child: Image.asset(
-                              "assets/images/icon-avatar.png",
+                              UserIcon,
                               width: 50,
                             ),
                           ),
@@ -426,12 +414,12 @@ class _Home extends State<Home> {
                                                 padding:
                                                     EdgeInsets.only(right: 10),
                                                 child: Image.asset(
-                                                  "assets/images/icon-happy.png",
+                                                  IconMoodHappy,
                                                   width: 30,
                                                 ),
                                               ),
                                               Text(
-                                                "很不错",
+                                                IconMoodHappyText,
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color.fromARGB(
@@ -472,12 +460,12 @@ class _Home extends State<Home> {
                                                 padding:
                                                     EdgeInsets.only(right: 10),
                                                 child: Image.asset(
-                                                  "assets/images/icon-normal.png",
+                                                  IconMoodNormal,
                                                   width: 25,
                                                 ),
                                               ),
                                               Text(
-                                                "一般般",
+                                                IconMoodNormalText,
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color.fromARGB(
@@ -516,12 +504,12 @@ class _Home extends State<Home> {
                                                 padding:
                                                     EdgeInsets.only(right: 10),
                                                 child: Image.asset(
-                                                  "assets/images/icon-sad.png",
+                                                  IconMoodSad,
                                                   width: 20,
                                                 ),
                                               ),
                                               Text(
-                                                "不太好",
+                                                IconMoodSadText,
                                                 style: TextStyle(
                                                     fontSize: 16,
                                                     color: Color.fromARGB(
