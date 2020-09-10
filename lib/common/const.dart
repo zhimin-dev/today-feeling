@@ -25,6 +25,10 @@ const String InputMoodFormCancelSave = "保存";
 const String InputMoodFormHasRecordedTip = "心情成功记录下来啦";
 const String InputMoodFormSavingText = "保存中...";
 
+const int MoodTypeHappy = 1;
+const int MoodTypeMormal = 2;
+const int MoodTypeSad = 3;
+
 const int TabHomeId = 0;
 const int TabCalendarId = 1;
 
