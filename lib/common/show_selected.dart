@@ -21,24 +21,6 @@ class _ShowSelected extends State<ShowSelected> {
     super.initState();
   }
 
-  //保存按钮
-  void submitTextarea() {
-    if (showForm) {
-      formOverlayEntry.remove();
-      showForm = false;
-      showSaving = true;
-      Overlay.of(context).insert(loadingOverlayEntry);
-      Future.delayed(Duration(seconds: 1), () {
-        if (showSaving) {
-          loadingOverlayEntry.remove();
-          showSaving = false;
-        }
-        Overlay.of(context).insert(finishOverlayEntry);
-        showFinish = true;
-      });
-    }
-  }
-
   //弹出心情form表单
   void showTextarea(int moodType) {
     GlobalForm form = new GlobalForm();

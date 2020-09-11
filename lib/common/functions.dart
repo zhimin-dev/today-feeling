@@ -166,6 +166,7 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
                                 child: Text(InputMoodFormCancelText),
                                 onTap: () {
                                   GlobalForm form = new GlobalForm();
+                                  form.setData(MoodTypeHappy, "");
                                   form.closeEntry();
                                 },
                               ),
@@ -181,11 +182,11 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
                                 onTap: () {
                                   GlobalForm form = new GlobalForm();
                                   form.closeEntry();
-                                  form.setContext(context);
+                                  // form.setContext(context);
                                   form.setEntry(loadingOverlayEntry);
                                   Future.delayed(Duration(seconds: 1), () {
                                     form.closeEntry();
-                                    form.setContext(context);
+                                    // form.setContext(context);
                                     form.setEntry(finishOverlayEntry);
                                   });
                                 },
@@ -232,7 +233,7 @@ class GlobalForm {
   }
 
   int moodType;
-  String content;
+  String content = "";
   String moodIcon;
   OverlayEntry enrty;
 

@@ -13,13 +13,11 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  Widget ShowFromWidget;
   double paddingRight = 30 / 1.0;
   double paddingLeft = 30 / 1.0;
   double paddingTop = 50.0;
   String userName = "淼";
   bool showNotifcation = false;
-  bool todayRecord = false;
 
   String _getNowDayTime() {
     var now = new DateTime.now();
@@ -62,7 +60,8 @@ class _Home extends State<Home> {
   }
 
   Widget getShowDifferent() {
-    if (todayRecord) {
+    GlobalForm form = new GlobalForm();
+    if (form.getDataContent() != "") {
       return new ShowRecord();
     } else {
       return new ShowSelected();
