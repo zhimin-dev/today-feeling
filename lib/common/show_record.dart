@@ -21,7 +21,19 @@ class _ShowRecord extends State<ShowRecord> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Text(form.getDataContent())],
+      children: [
+        Text(
+          form.getDataContent(),
+          style: TextStyle(fontSize: 25),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          child: Image.asset(
+            IconMoodEedit,
+            width: 26,
+          ),
+        )
+      ],
     );
   }
 }

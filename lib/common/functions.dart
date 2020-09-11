@@ -6,6 +6,8 @@ var loadingOverlayEntry = new OverlayEntry(builder: (context) {
   double paddingRight = 30 / 1.0;
   double paddingLeft = 30 / 1.0;
   double bottomPadding = MediaQuery.of(context).padding.bottom;
+  GlobalForm form = new GlobalForm();
+  form.setContext(context);
   return new ConstrainedBox(
       constraints: BoxConstraints.expand(),
       child: Stack(
@@ -47,6 +49,8 @@ var finishOverlayEntry = new OverlayEntry(builder: (context) {
   final size = MediaQuery.of(context).size;
   double paddingRight = 30 / 1.0;
   double paddingLeft = 30 / 1.0;
+  GlobalForm form = new GlobalForm();
+  form.setContext(context);
   return new ConstrainedBox(
       constraints: BoxConstraints.expand(),
       child: Stack(children: [
@@ -126,6 +130,7 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
   String showFormMoodIcon = IconMoodHappy;
   GlobalForm form = new GlobalForm();
   showFormMoodIcon = form.getMoodIcon();
+  form.setContext(context);
   final textFiledController = TextEditingController();
   FocusNode _focusNode = new FocusNode();
 
@@ -181,12 +186,11 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
                                 ),
                                 onTap: () {
                                   GlobalForm form = new GlobalForm();
+                                  form.setData(1, "21212");
                                   form.closeEntry();
-                                  // form.setContext(context);
                                   form.setEntry(loadingOverlayEntry);
                                   Future.delayed(Duration(seconds: 1), () {
                                     form.closeEntry();
-                                    // form.setContext(context);
                                     form.setEntry(finishOverlayEntry);
                                   });
                                 },
@@ -221,7 +225,7 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
       ));
 });
 
-class GlobalForm {
+class GlobalForm extends ChangeNotifier {
   factory GlobalForm() => _getInstance();
   static GlobalForm _instance;
   GlobalForm._() {}
@@ -253,10 +257,12 @@ class GlobalForm {
   void setData(int moodType, String content) {
     this.moodType = moodType;
     this.content = content;
+    notifyListeners();
   }
 
   void setIcon(String icon) {
     this.moodIcon = icon;
+    notifyListeners();
   }
 
   String getDataContent() {

@@ -4,6 +4,7 @@ import '../common/const.dart';
 import '../common/show_record.dart';
 import '../common/show_selected.dart';
 import '../common/functions.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(Home());
 
@@ -76,249 +77,126 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        body: Container(
-            child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-                left: paddingLeft, top: paddingTop, right: paddingRight),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => GlobalForm()),
+        ],
+        child: Scaffold(
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            body: Container(
+                child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: paddingLeft, top: paddingTop, right: paddingRight),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                _getTodayWeek(),
-                                textScaleFactor: 1.5,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: Color.fromARGB(217, 0, 0, 0)),
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    _getTodayWeek(),
+                                    textScaleFactor: 1.5,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: Color.fromARGB(217, 0, 0, 0)),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    _getNowDayTime(),
+                                    textAlign: TextAlign.left,
+                                    textScaleFactor: 1.1,
+                                    style: TextStyle(
+                                        color: Color.fromARGB(64, 0, 0, 0)),
+                                  ),
+                                )
+                              ],
                             ),
                             Container(
-                              child: Text(
-                                _getNowDayTime(),
-                                textAlign: TextAlign.left,
-                                textScaleFactor: 1.1,
-                                style: TextStyle(
-                                    color: Color.fromARGB(64, 0, 0, 0)),
+                              child: Image.asset(
+                                IconWeatherSunny,
+                                width: 40,
                               ),
                             )
                           ],
                         ),
                         Container(
-                          child: Image.asset(
-                            IconWeatherSunny,
-                            width: 40,
-                          ),
-                        )
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 50, bottom: 22),
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: Image.asset(
-                              UserIcon,
-                              width: 50,
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          margin: EdgeInsets.only(top: 50, bottom: 22),
+                          child: Row(
                             children: [
                               Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text.rich(
-                                  TextSpan(children: [
-                                    TextSpan(
-                                        text: "你好, ",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(64, 0, 0, 0),
-                                            fontSize: 16)),
-                                    TextSpan(
-                                        text: "$userName",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(64, 0, 0, 0),
-                                            fontSize: 16))
-                                  ]),
-                                  textAlign: TextAlign.left,
+                                margin: EdgeInsets.only(right: 10),
+                                child: Image.asset(
+                                  UserIcon,
+                                  width: 50,
                                 ),
                               ),
-                              Container(
-                                child: Text(
-                                  "今天过得怎么样?",
-                                  style: TextStyle(fontSize: 16),
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text.rich(
+                                      TextSpan(children: [
+                                        TextSpan(
+                                            text: "你好, ",
+                                            style: TextStyle(
+                                                color:
+                                                    Color.fromARGB(64, 0, 0, 0),
+                                                fontSize: 16)),
+                                        TextSpan(
+                                            text: "$userName",
+                                            style: TextStyle(
+                                                color:
+                                                    Color.fromARGB(64, 0, 0, 0),
+                                                fontSize: 16))
+                                      ]),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "今天过得怎么样?",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  )
+                                ],
                               )
                             ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        getShowDifferent()
-                        // Column(
-                        //   children: [
-                        //     Container(
-                        //         width: width - paddingRight - paddingLeft,
-                        //         height: 50,
-                        //         margin: EdgeInsets.only(top: 30),
-                        //         alignment: Alignment.center,
-                        //         child: FlatButton(
-                        //           onPressed: () {
-                        //             showTextarea(MoodTypeHappy);
-                        //           },
-                        //           color: Color.fromARGB(100, 200, 200, 200),
-                        //           highlightColor: Colors.transparent,
-                        //           splashColor: Colors.transparent,
-                        //           shape: RoundedRectangleBorder(
-                        //               borderRadius:
-                        //                   BorderRadius.circular(20.0)),
-                        //           child: Container(
-                        //             alignment: Alignment.center,
-                        //             child: Row(
-                        //               mainAxisAlignment:
-                        //                   MainAxisAlignment.spaceEvenly,
-                        //               children: [
-                        //                 Container(
-                        //                   child: Row(
-                        //                     children: [
-                        //                       Padding(
-                        //                         padding:
-                        //                             EdgeInsets.only(right: 10),
-                        //                         child: Image.asset(
-                        //                           IconMoodHappy,
-                        //                           width: 30,
-                        //                         ),
-                        //                       ),
-                        //                       Text(
-                        //                         IconMoodHappyText,
-                        //                         style: TextStyle(
-                        //                             fontSize: 16,
-                        //                             color: Color.fromARGB(
-                        //                                 217, 0, 0, 0)),
-                        //                       )
-                        //                     ],
-                        //                   ),
-                        //                 )
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         )),
-                        //     Container(
-                        //         width: width - paddingRight - paddingLeft,
-                        //         height: 50,
-                        //         margin: EdgeInsets.only(top: 20),
-                        //         alignment: Alignment.center,
-                        //         child: FlatButton(
-                        //           onPressed: () {
-                        //             showTextarea(MoodTypeMormal);
-                        //           },
-                        //           color: Color.fromARGB(100, 200, 200, 200),
-                        //           highlightColor: Colors.transparent,
-                        //           splashColor: Colors.transparent,
-                        //           shape: RoundedRectangleBorder(
-                        //               borderRadius:
-                        //                   BorderRadius.circular(20.0)),
-                        //           child: Container(
-                        //             alignment: Alignment.center,
-                        //             child: Row(
-                        //               mainAxisAlignment:
-                        //                   MainAxisAlignment.spaceEvenly,
-                        //               children: [
-                        //                 Container(
-                        //                   child: Row(
-                        //                     children: [
-                        //                       Padding(
-                        //                         padding:
-                        //                             EdgeInsets.only(right: 10),
-                        //                         child: Image.asset(
-                        //                           IconMoodNormal,
-                        //                           width: 25,
-                        //                         ),
-                        //                       ),
-                        //                       Text(
-                        //                         IconMoodNormalText,
-                        //                         style: TextStyle(
-                        //                             fontSize: 16,
-                        //                             color: Color.fromARGB(
-                        //                                 180, 0, 0, 0)),
-                        //                       )
-                        //                     ],
-                        //                   ),
-                        //                 )
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         )),
-                        //     Container(
-                        //         width: width - paddingRight - paddingLeft,
-                        //         margin: EdgeInsets.only(top: 20),
-                        //         height: 50,
-                        //         alignment: Alignment.center,
-                        //         child: FlatButton(
-                        //           onPressed: () {
-                        //             showTextarea(MoodTypeSad);
-                        //           },
-                        //           color: Color.fromARGB(100, 200, 200, 200),
-                        //           highlightColor: Colors.transparent,
-                        //           splashColor: Colors.transparent,
-                        //           shape: RoundedRectangleBorder(
-                        //               borderRadius:
-                        //                   BorderRadius.circular(20.0)),
-                        //           child: Container(
-                        //             alignment: Alignment.center,
-                        //             child: Row(
-                        //               mainAxisAlignment:
-                        //                   MainAxisAlignment.spaceEvenly,
-                        //               children: [
-                        //                 Container(
-                        //                   child: Row(
-                        //                     children: [
-                        //                       Padding(
-                        //                         padding:
-                        //                             EdgeInsets.only(right: 10),
-                        //                         child: Image.asset(
-                        //                           IconMoodSad,
-                        //                           width: 20,
-                        //                         ),
-                        //                       ),
-                        //                       Text(
-                        //                         IconMoodSadText,
-                        //                         style: TextStyle(
-                        //                             fontSize: 16,
-                        //                             color: Color.fromARGB(
-                        //                                 140, 0, 0, 0)),
-                        //                       )
-                        //                     ],
-                        //                   ),
-                        //                 )
-                        //               ],
-                        //             ),
-                        //           ),
-                        //         ))
-                        //   ],
-                        // )
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CountWidget(),
+                          ],
+                        )
                       ],
                     )
                   ],
-                )
-              ],
-            ),
-          ),
-        )));
+                ),
+              ),
+            ))));
+  }
+}
+
+class CountWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<GlobalForm>(builder: (context, obj, _) {
+      if (obj.getDataContent() != "") {
+        return new ShowRecord();
+      } else {
+        return new ShowSelected();
+      }
+    });
   }
 }

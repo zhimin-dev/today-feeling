@@ -12,6 +12,7 @@ const String DefaultUserIcon = "assets/images/icon-avatar.png";
 const String IconMoodHappy = "assets/images/icon-happy.png";
 const String IconMoodNormal = "assets/images/icon-normal.png";
 const String IconMoodSad = "assets/images/icon-sad.png";
+const String IconMoodEedit = "assets/images/icon-btn-edit.png";
 
 const String AppTitle = "咋样";
 const String HomeTitle = "Today";
