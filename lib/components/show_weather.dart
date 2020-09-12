@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'const.dart';
-import 'functions.dart';
+import '../const/const.dart';
+import 'overlay_entry.dart';
 
-void main() => runApp(ShowWhatIsUp());
+void main() => runApp(ShowWeather());
 
-class ShowWhatIsUp extends StatefulWidget {
+class ShowWeather extends StatefulWidget {
   @override
-  _ShowWhatIsUp createState() => new _ShowWhatIsUp();
+  _ShowWeather createState() => new _ShowWeather();
 }
 
-class _ShowWhatIsUp extends State<ShowWhatIsUp> {
+class _ShowWeather extends State<ShowWeather> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

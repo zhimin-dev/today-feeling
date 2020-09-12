@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'const.dart';
-import 'functions.dart';
+import '../const/const.dart';
+import 'overlay_entry.dart';
+import '../model/mood_form.dart';
 
 void main() => runApp(ShowSelected());
 
@@ -25,19 +26,8 @@ class _ShowSelected extends State<ShowSelected> {
   void showTextarea(int moodType) {
     GlobalForm form = new GlobalForm();
     form.setData(moodType, "");
-    form.setIcon(setMoodIconByType(moodType));
     form.setContext(context);
     form.setEntry(formOverlayEntry);
-  }
-
-  String setMoodIconByType(int moodType) {
-    if (moodType == MoodTypeSad) {
-      return IconMoodSad;
-    } else if (moodType == MoodTypeMormal) {
-      return IconMoodNormal;
-    } else {
-      return IconMoodHappy;
-    }
   }
 
   @override

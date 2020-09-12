@@ -8,27 +8,13 @@ class Calendar extends StatefulWidget {
   _Calendar createState() => new _Calendar();
 }
 
-class OneMood {
-  int day;
-  String content;
-  int feeling;
-  OneMood(this.day, this.content, this.feeling);
-  GetContent() {
-    return this.content;
-  }
-
-  GetMood() {
-    return this;
-  }
-}
-
 class _Calendar extends State<Calendar> {
   ValueNotifier<String> text;
   ValueNotifier<String> selectText;
   DateModel _selectDate;
   CalendarController controller;
 
-  Map<int, OneMood> myMoods = {20200916: new OneMood(20200916, "xxxxx", 1)};
+  // Map<int, OneMood> myMoods = {20200916: new OneMood(20200916, "xxxxx", 1)};
 
   @override
   void initState() {
@@ -112,7 +98,6 @@ class _Calendar extends State<Calendar> {
               child: Column(
             children: [
               Text("${_selectDate.getDateTime()}  "),
-              Text("${myMoods[20200916].GetContent()}"),
             ],
           ))
         ],

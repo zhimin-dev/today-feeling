@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../common/show_what_is_up.dart';
-import '../common/const.dart';
-import '../common/show_weather.dart';
-import '../common/show_record.dart';
-import '../common/show_selected.dart';
-import '../common/functions.dart';
+import '../components/show_weather.dart';
+import '../components/show_what_is_up.dart';
+import '../model/mood_form.dart';
+import '../components/show_record.dart';
+import '../components/show_selected.dart';
+import '../components/overlay_entry.dart';
+import '../const/const.dart';
 import 'package:provider/provider.dart';
-import '../common/choose_show_selected_or_recored.dart';
+import '../components/choose_show_selected_or_recored.dart';
 
 void main() => runApp(Home());
 
@@ -19,20 +20,9 @@ class _Home extends State<Home> {
   double paddingRight = 30 / 1.0;
   double paddingLeft = 30 / 1.0;
   double paddingTop = 50.0;
-  bool showNotifcation = false;
-
-  // Widget getShowDifferent() {
-  //   GlobalForm form = new GlobalForm();
-  //   if (form.getDataContent() != "") {
-  //     return new ShowRecord();
-  //   } else {
-  //     return new ShowSelected();
-  //   }
-  // }
 
   @override
   void initState() {
-    // getShowDifferent();
     super.initState();
   }
 
@@ -52,7 +42,6 @@ class _Home extends State<Home> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ShowWhatIsUp(),
                     ShowWeather(),
                     CountWidget(),
                   ],

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:today_feeling/const/const.dart';
 
 class AppBaseModel extends ChangeNotifier {
   factory AppBaseModel() => _getInstance();
   static AppBaseModel _instance;
-  AppBaseModel._();
+  AppBaseModel._() {
+    this.appTitle = HomeTitle;
+    this.nowTab = TabHomeId;
+  }
   static AppBaseModel _getInstance() {
     if (_instance == null) {
       _instance = AppBaseModel._();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'const.dart';
+import '../const/const.dart';
 import 'package:intl/intl.dart';
+import '../model/mood_form.dart';
 
 var loadingOverlayEntry = new OverlayEntry(builder: (context) {
   final size = MediaQuery.of(context).size;
@@ -76,7 +77,7 @@ var finishOverlayEntry = new OverlayEntry(builder: (context) {
                 child: new Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(top: 50, bottom: 10),
+                      padding: EdgeInsets.only(top: 20, bottom: 10),
                       child: Image.asset(
                         IconPostSuccess,
                         width: 120,
@@ -91,11 +92,10 @@ var finishOverlayEntry = new OverlayEntry(builder: (context) {
                       child: Container(
                         width: size.width - paddingRight - paddingLeft,
                         height: 50,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         alignment: Alignment.center,
                         child: FlatButton(
                           onPressed: () {
-                            GlobalForm form = new GlobalForm();
                             form.closeEntry();
                           },
                           color: Color.fromRGBO(255, 236, 228, 1),
@@ -133,6 +133,10 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
   showFormMoodIcon = form.getMoodIcon();
   form.setContext(context);
   final textFiledController = TextEditingController();
+  textFiledController.text = form.getDataContent();
+  textFiledController.addListener(() {
+    form.setContent(textFiledController.text);
+  });
   FocusNode _focusNode = new FocusNode();
 
   return new ConstrainedBox(
@@ -164,7 +168,7 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
                     child: new Column(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 20, bottom: 20),
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -187,11 +191,12 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
                                 ),
                                 onTap: () {
                                   GlobalForm form = new GlobalForm();
-                                  form.setData(1, "21212");
                                   form.closeEntry();
                                   form.setEntry(loadingOverlayEntry);
                                   Future.delayed(Duration(seconds: 1), () {
                                     form.closeEntry();
+                                    form.setTodayIsSetMood();
+                                    form.setShowContent();
                                     form.setEntry(finishOverlayEntry);
                                   });
                                 },
@@ -264,63 +269,4 @@ String getTodayWeek() {
       break;
   }
   return "星期$str";
-}
-
-class GlobalForm extends ChangeNotifier {
-  factory GlobalForm() => _getInstance();
-  static GlobalForm _instance;
-  GlobalForm._();
-  static GlobalForm _getInstance() {
-    if (_instance == null) {
-      _instance = GlobalForm._();
-    }
-    return _instance;
-  }
-
-  int moodType;
-  String content = "";
-  String moodIcon;
-  OverlayEntry enrty;
-
-  BuildContext outsideContext;
-
-  void setEntry(OverlayEntry entry) {
-    if (entry != null) {
-      this.enrty = entry;
-      Overlay.of(this.outsideContext).insert(entry);
-    }
-  }
-
-  void setContext(BuildContext ctx) {
-    this.outsideContext = ctx;
-  }
-
-  void setData(int moodType, String content) {
-    this.moodType = moodType;
-    this.content = content;
-    notifyListeners();
-  }
-
-  void setIcon(String icon) {
-    this.moodIcon = icon;
-    notifyListeners();
-  }
-
-  String getDataContent() {
-    return this.content;
-  }
-
-  int getDataMoodType() {
-    return this.moodType;
-  }
-
-  String getMoodIcon() {
-    return this.moodIcon;
-  }
-
-  closeEntry() {
-    if (this.enrty != null) {
-      this.enrty.remove();
-    }
-  }
 }

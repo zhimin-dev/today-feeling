@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'const.dart';
+import '../const/const.dart';
 
-void main() => runApp(ShowWeather());
+void main() => runApp(ShowWhatIsUp());
 
-class ShowWeather extends StatefulWidget {
+class ShowWhatIsUp extends StatefulWidget {
   @override
-  _ShowWeather createState() => new _ShowWeather();
+  _ShowWhatIsUp createState() => new _ShowWhatIsUp();
 }
 
-class _ShowWeather extends State<ShowWeather> {
+class _ShowWhatIsUp extends State<ShowWhatIsUp> {
   String userName = "淼";
 
   @override

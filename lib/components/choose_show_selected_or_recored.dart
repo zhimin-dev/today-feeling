@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../common/functions.dart';
-import '../common/show_selected.dart';
+import '../model/mood_form.dart';
 import 'package:provider/provider.dart';
-import '../common/show_record.dart';
+import '../components/show_record.dart';
+import '../components/show_unrecord.dart';
 
 void main() => runApp(CountWidget());
 
@@ -15,10 +15,10 @@ class _CountWidget extends State<CountWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer<GlobalForm>(builder: (context, obj, _) {
-      if (obj.getDataContent() != "") {
+      if (obj.getTodayIsSetMood()) {
         return new ShowRecord();
       } else {
-        return new ShowSelected();
+        return new ShowUnrecord();
       }
     });
   }

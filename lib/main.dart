@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:today_feeling/common/functions.dart';
-import 'calendar/calendar.dart';
-import 'home/home.dart';
-import 'common/const.dart';
-import 'common/splash_screen.dart';
-import 'common/footer.dart';
+import 'package:today_feeling/model/app_base.dart';
+import 'controller/calendar_controller.dart';
+import 'controller/home_controller.dart';
+import 'const/const.dart';
+import 'controller/splash_controller.dart';
+import 'components/footer.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,37 +34,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int nowTab = TabHomeId;
-  String title = HomeTitle;
-
-  void setAppBarTitle() {
-    if (nowTab == TabCalendarId) {
-      title = CalendarTitle;
-    } else {
-      title = HomeTitle;
-    }
-  }
-
-  // void _setNowTab(int tabNum) {
-  //   setState(() {
-  //     this.nowTab = tabNum;
-  //     setAppBarTitle();
-  //   });
-  // }
+  AppBaseModel appBase;
 
   @override
   void initState() {
+    appBase = new AppBaseModel();
     super.initState();
   }
 
   currentPage() {
-    switch (nowTab) {
+    switch (appBase.getNowTab()) {
       case 1:
-        setAppBarTitle();
         return new Calendar();
         break;
       default:
-        setAppBarTitle();
         return new Home();
     }
   }
@@ -73,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(appBase.getAppTitle()),
           actions: <Widget>[
             // Row(
             //   children: <Widget>[
@@ -90,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: SafeArea(child: this.currentPage()),
         bottomNavigationBar: SafeArea(
-          child: ButtomFooter(nowTab: nowTab),
+          child: ButtomFooter(),
         ));
   }
 }

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import '../common/const.dart';
+import '../const/const.dart';
 import '../model/app_base.dart';
 
 void main() => runApp(ButtomFooter());
 
 class ButtomFooter extends StatefulWidget {
-  ButtomFooter({Key key, this.nowTab}) : super(key: key);
-
-  final int nowTab;
-
   @override
   _ButtomFooter createState() => new _ButtomFooter();
 }
@@ -42,7 +38,7 @@ class _ButtomFooter extends State<ButtomFooter> {
                     },
                     child: Column(
                       children: [
-                        widget.nowTab == TabHomeId
+                        appBase.getNowTab() == TabHomeId
                             ? Image.asset(
                                 IconTodaySelected,
                                 width: 26,
@@ -62,7 +58,7 @@ class _ButtomFooter extends State<ButtomFooter> {
                     },
                     child: Column(
                       children: [
-                        widget.nowTab == TabCalendarId
+                        appBase.getNowTab() == TabCalendarId
                             ? Image.asset(
                                 IconCalendarSelected,
                                 width: 26,
