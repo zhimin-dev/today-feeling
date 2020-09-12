@@ -46,8 +46,9 @@ class _ShowSelected extends State<ShowSelected> {
     double paddingRight = 30 / 1.0;
     double paddingLeft = 30 / 1.0;
     double width = size.width / 1.0;
-    return Expanded(
+    return SafeArea(
         child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
             width: width - paddingRight - paddingLeft,

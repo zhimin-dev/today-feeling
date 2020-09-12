@@ -20,7 +20,8 @@ class _ShowRecord extends State<ShowRecord> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SafeArea(
+        child: Column(
       children: [
         Text(
           form.getDataContent(),
@@ -34,6 +35,6 @@ class _ShowRecord extends State<ShowRecord> {
           ),
         )
       ],
-    );
+    ));
   }
 }

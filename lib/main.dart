@@ -4,6 +4,7 @@ import 'calendar/calendar.dart';
 import 'home/home.dart';
 import 'common/const.dart';
 import 'common/splash_screen.dart';
+import 'common/footer.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,12 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _setNowTab(int tabNum) {
-    setState(() {
-      this.nowTab = tabNum;
-      setAppBarTitle();
-    });
-  }
+  // void _setNowTab(int tabNum) {
+  //   setState(() {
+  //     this.nowTab = tabNum;
+  //     setAppBarTitle();
+  //   });
+  // }
 
   @override
   void initState() {
@@ -74,74 +75,22 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(title),
           actions: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 13),
-                  child: Image.asset(
-                    IconShare,
-                    width: 20,
-                  ),
-                )
-              ],
-            )
+            // Row(
+            //   children: <Widget>[
+            //     Padding(
+            //       padding: const EdgeInsets.only(right: 13),
+            //       child: Image.asset(
+            //         IconShare,
+            //         width: 20,
+            //       ),
+            //     )
+            //   ],
+            // )
           ],
         ),
         body: SafeArea(child: this.currentPage()),
         bottomNavigationBar: SafeArea(
-          child: Container(
-            height: 50,
-            child: Column(
-              children: [
-                Divider(
-                  height: 2,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 30, right: 30, top: 12),
-                      child: GestureDetector(
-                          onTap: () => {this._setNowTab(TabHomeId)},
-                          child: Column(
-                            children: [
-                              this.nowTab == TabHomeId
-                                  ? Image.asset(
-                                      IconTodaySelected,
-                                      width: 26,
-                                    )
-                                  : Image.asset(
-                                      IconTodayUnselected,
-                                      width: 26,
-                                    )
-                            ],
-                          )),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 30, right: 30, top: 12),
-                      child: GestureDetector(
-                          onTap: () => {this._setNowTab(TabCalendarId)},
-                          child: Column(
-                            children: [
-                              this.nowTab == TabCalendarId
-                                  ? Image.asset(
-                                      IconCalendarSelected,
-                                      width: 26,
-                                    )
-                                  : Image.asset(
-                                      IconCalendarUnselected,
-                                      width: 26,
-                                    )
-                            ],
-                          )),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
+          child: ButtomFooter(nowTab: nowTab),
         ));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'const.dart';
+import 'package:intl/intl.dart';
 
 var loadingOverlayEntry = new OverlayEntry(builder: (context) {
   final size = MediaQuery.of(context).size;
@@ -225,10 +226,50 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
       ));
 });
 
+String getNowDayTime() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy年MM月dd日');
+  return formatter.format(now);
+}
+
+//获取天气
+String getWetherFromApi() {
+  return IconWeatherSunny;
+}
+
+String getTodayWeek() {
+  int w = DateTime.now().weekday;
+  String str = "";
+  switch (w) {
+    case 1:
+      str = "一";
+      break;
+    case 2:
+      str = "二";
+      break;
+    case 3:
+      str = "三";
+      break;
+    case 4:
+      str = "四";
+      break;
+    case 5:
+      str = "五";
+      break;
+    case 6:
+      str = "六";
+      break;
+    case 7:
+      str = "天";
+      break;
+  }
+  return "星期$str";
+}
+
 class GlobalForm extends ChangeNotifier {
   factory GlobalForm() => _getInstance();
   static GlobalForm _instance;
-  GlobalForm._() {}
+  GlobalForm._();
   static GlobalForm _getInstance() {
     if (_instance == null) {
       _instance = GlobalForm._();
