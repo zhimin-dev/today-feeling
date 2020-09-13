@@ -4,14 +4,19 @@ import 'package:provider/provider.dart';
 import '../components/show_record.dart';
 import '../components/show_unrecord.dart';
 
-void main() => runApp(CountWidget());
+void main() => runApp(ChooseShowSelectedOrRecord());
 
-class CountWidget extends StatefulWidget {
+class ChooseShowSelectedOrRecord extends StatefulWidget {
   @override
-  _CountWidget createState() => new _CountWidget();
+  _ChooseShowSelectedOrRecord createState() => _ChooseShowSelectedOrRecord();
 }
 
-class _CountWidget extends State<CountWidget> {
+class _ChooseShowSelectedOrRecord extends State<ChooseShowSelectedOrRecord> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<GlobalForm>(builder: (context, obj, _) {

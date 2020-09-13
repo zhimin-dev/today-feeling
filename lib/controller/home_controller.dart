@@ -30,7 +30,7 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => GlobalForm()),
+          ChangeNotifierProvider(create: (_) => new GlobalForm()),
         ],
         child: Scaffold(
             backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -43,7 +43,7 @@ class _Home extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ShowWeather(),
-                    CountWidget(),
+                    ChooseShowSelectedOrRecord(),
                   ],
                 ),
               ),

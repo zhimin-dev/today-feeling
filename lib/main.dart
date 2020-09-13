@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:today_feeling/components/main.dart';
 import 'package:today_feeling/model/app_base.dart';
-import 'controller/calendar_controller.dart';
-import 'controller/home_controller.dart';
 import 'const/const.dart';
 import 'controller/splash_controller.dart';
-import 'components/footer.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,46 +33,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  AppBaseModel appBase;
-
   @override
   void initState() {
-    appBase = new AppBaseModel();
     super.initState();
-  }
-
-  currentPage() {
-    switch (appBase.getNowTab()) {
-      case 1:
-        return new Calendar();
-        break;
-      default:
-        return new Home();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(appBase.getAppTitle()),
-          actions: <Widget>[
-            // Row(
-            //   children: <Widget>[
-            //     Padding(
-            //       padding: const EdgeInsets.only(right: 13),
-            //       child: Image.asset(
-            //         IconShare,
-            //         width: 20,
-            //       ),
-            //     )
-            //   ],
-            // )
-          ],
-        ),
-        body: SafeArea(child: this.currentPage()),
-        bottomNavigationBar: SafeArea(
-          child: ButtomFooter(),
-        ));
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => AppBaseModel()),
+    ], child: Main());
   }
 }

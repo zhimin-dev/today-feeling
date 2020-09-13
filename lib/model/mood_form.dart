@@ -21,6 +21,11 @@ class GlobalForm extends ChangeNotifier {
   bool isSetToday = false;
   OverlayEntry enrty;
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   BuildContext outsideContext;
 
   void setEntry(OverlayEntry entry) {
