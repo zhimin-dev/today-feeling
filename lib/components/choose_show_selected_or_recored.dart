@@ -16,7 +16,10 @@ class _CountWidget extends State<CountWidget> {
   Widget build(BuildContext context) {
     return Consumer<GlobalForm>(builder: (context, obj, _) {
       if (obj.getTodayIsSetMood()) {
-        return new ShowRecord();
+        return Padding(
+          padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+          child: new ShowRecord(),
+        );
       } else {
         return new ShowUnrecord();
       }

@@ -67,9 +67,12 @@ class SplashScreenState extends State<SplashScreen>
                     DefaultUserIcon,
                     width: 40,
                   ),
-                  Text(
-                    AppTitle,
-                    style: TextStyle(color: Colors.black87, fontSize: 20),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      AppTitle,
+                      style: TextStyle(color: Colors.black87, fontSize: 20),
+                    ),
                   )
                 ],
               ),

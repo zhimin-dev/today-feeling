@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import '../const/const.dart';
 import 'package:intl/intl.dart';
 import '../model/mood_form.dart';
+import '../const/overlay_entry.dart';
 
 var loadingOverlayEntry = new OverlayEntry(builder: (context) {
   final size = MediaQuery.of(context).size;
-  double paddingRight = 30 / 1.0;
-  double paddingLeft = 30 / 1.0;
   double bottomPadding = MediaQuery.of(context).padding.bottom;
   GlobalForm form = new GlobalForm();
   form.setContext(context);
@@ -26,15 +25,15 @@ var loadingOverlayEntry = new OverlayEntry(builder: (context) {
                   ? MediaQuery.of(context).viewInsets.bottom - bottomPadding
                   : 0,
               width: size.width,
-              height: 0.4 * size.height,
+              height: OverlayEntryheight * size.height,
               child: new Material(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
+                    topLeft: Radius.circular(CircleRadiusSize),
+                    topRight: Radius.circular(CircleRadiusSize)),
                 child: Padding(
                   padding:
-                      EdgeInsets.only(left: paddingLeft, right: paddingRight),
+                      EdgeInsets.only(left: PaddingLeft, right: PaddingRight),
                   child: new Container(
                     child: Center(
                       child: Text(InputMoodFormSavingText,
@@ -49,8 +48,6 @@ var loadingOverlayEntry = new OverlayEntry(builder: (context) {
 
 var finishOverlayEntry = new OverlayEntry(builder: (context) {
   final size = MediaQuery.of(context).size;
-  double paddingRight = 30 / 1.0;
-  double paddingLeft = 30 / 1.0;
   GlobalForm form = new GlobalForm();
   form.setContext(context);
   return new ConstrainedBox(
@@ -66,56 +63,56 @@ var finishOverlayEntry = new OverlayEntry(builder: (context) {
         Positioned(
           bottom: 0,
           width: size.width,
-          height: 0.4 * size.height,
+          height: OverlayEntryheight * size.height,
           child: new Material(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                topLeft: Radius.circular(CircleRadiusSize),
+                topRight: Radius.circular(CircleRadiusSize)),
             child: Padding(
-              padding: EdgeInsets.only(left: paddingLeft, right: paddingRight),
-              child: new Container(
-                child: new Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 20, bottom: 10),
-                      child: Image.asset(
-                        IconPostSuccess,
-                        width: 120,
+              padding: EdgeInsets.only(left: PaddingLeft, right: PaddingRight),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 10),
+                    child: Image.asset(
+                      IconPostSuccess,
+                      width: 120,
+                    ),
+                  ),
+                  Center(
+                    child: Text(InputMoodFormHasRecordedTip,
+                        style: TextStyle(fontSize: 16)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Container(
+                      width: size.width - PaddingRight - PaddingLeft,
+                      height: 50,
+                      margin: EdgeInsets.only(top: 10),
+                      alignment: Alignment.center,
+                      child: FlatButton(
+                        onPressed: () {
+                          form.closeEntry();
+                        },
+                        color: Color.fromRGBO(255, 236, 228, 1),
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              IconPostSuccessText,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(255, 125, 66, 1)),
+                            )),
                       ),
                     ),
-                    Center(
-                      child: Text(InputMoodFormHasRecordedTip,
-                          style: TextStyle(fontSize: 16)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
-                      child: Container(
-                        width: size.width - paddingRight - paddingLeft,
-                        height: 50,
-                        margin: EdgeInsets.only(top: 10),
-                        alignment: Alignment.center,
-                        child: FlatButton(
-                          onPressed: () {
-                            form.closeEntry();
-                          },
-                          color: Color.fromRGBO(255, 236, 228, 1),
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                IconPostSuccessText,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(255, 125, 66, 1)),
-                              )),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -125,8 +122,6 @@ var finishOverlayEntry = new OverlayEntry(builder: (context) {
 
 var formOverlayEntry = new OverlayEntry(builder: (context) {
   final size = MediaQuery.of(context).size;
-  double paddingRight = 30 / 1.0;
-  double paddingLeft = 30 / 1.0;
   double bottomPadding = MediaQuery.of(context).padding.bottom;
   String showFormMoodIcon = IconMoodHappy;
   GlobalForm form = new GlobalForm();
@@ -151,82 +146,80 @@ var formOverlayEntry = new OverlayEntry(builder: (context) {
             height: size.height,
           ),
           Positioned(
-              bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                  ? MediaQuery.of(context).viewInsets.bottom - bottomPadding
-                  : 0,
-              width: size.width,
-              height: 0.4 * size.height,
-              child: new Material(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(left: paddingLeft, right: paddingRight),
-                  child: new Container(
-                    child: new Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(top: 10, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                child: Text(InputMoodFormCancelText),
-                                onTap: () {
-                                  GlobalForm form = new GlobalForm();
-                                  form.setData(MoodTypeHappy, "");
-                                  form.closeEntry();
-                                },
-                              ),
-                              Image.asset(
-                                showFormMoodIcon,
-                                width: 30,
-                              ),
-                              GestureDetector(
-                                child: Text(
-                                  InputMoodFormCancelSave,
-                                  style: TextStyle(color: Colors.orange),
-                                ),
-                                onTap: () {
-                                  GlobalForm form = new GlobalForm();
-                                  form.closeEntry();
-                                  form.setEntry(loadingOverlayEntry);
-                                  Future.delayed(Duration(seconds: 1), () {
-                                    form.closeEntry();
-                                    form.setTodayIsSetMood();
-                                    form.setShowContent();
-                                    form.setEntry(finishOverlayEntry);
-                                  });
-                                },
-                              ),
-                            ],
+            bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                ? MediaQuery.of(context).viewInsets.bottom - bottomPadding
+                : 0,
+            width: size.width,
+            height: OverlayEntryheight * size.height,
+            child: new Material(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(CircleRadiusSize),
+                  topRight: Radius.circular(CircleRadiusSize)),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: PaddingLeft, right: PaddingRight, bottom: 10),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            child: Text(InputMoodFormCancelText),
+                            onTap: () {
+                              GlobalForm form = new GlobalForm();
+                              form.closeEntry();
+                            },
                           ),
-                        ),
-                        Expanded(
-                            child: ConstrainedBox(
-                          constraints:
-                              BoxConstraints(maxHeight: size.height - 100),
-                          child: TextField(
-                            focusNode: _focusNode,
-                            controller: textFiledController,
-                            maxLines: 10,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1),
-                                ),
-                                contentPadding: EdgeInsets.all(10.0),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1),
-                                )),
+                          Image.asset(
+                            showFormMoodIcon,
+                            width: 30,
                           ),
-                        )),
-                      ],
+                          GestureDetector(
+                            child: Text(
+                              InputMoodFormCancelSave,
+                              style: TextStyle(color: Colors.orange),
+                            ),
+                            onTap: () {
+                              GlobalForm form = new GlobalForm();
+                              form.closeEntry();
+                              form.setEntry(loadingOverlayEntry);
+                              Future.delayed(Duration(seconds: 1), () {
+                                form.closeEntry();
+                                form.setTodayIsSetMood();
+                                form.setShowContent();
+                                form.setEntry(finishOverlayEntry);
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    Expanded(
+                        child: ConstrainedBox(
+                      constraints: BoxConstraints(maxHeight: size.height - 100),
+                      child: TextField(
+                        focusNode: _focusNode,
+                        controller: textFiledController,
+                        maxLines: 100,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(width: 1),
+                            ),
+                            contentPadding: EdgeInsets.all(10.0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(width: 1),
+                            )),
+                      ),
+                    )),
+                  ],
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ));
 });

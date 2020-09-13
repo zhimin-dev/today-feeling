@@ -35,20 +35,37 @@ class _ShowRecord extends State<ShowRecord> {
       children: [
         Container(
           alignment: Alignment.topLeft,
-          child: Text(
-            form.getShowContent(),
-            style: TextStyle(fontSize: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Center(
+                  child: Image.asset(
+                    IconMoodHappy,
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(form.getShowContent(),
+                    style: TextStyle(fontSize: 15, letterSpacing: 1.2)),
+              ),
+            ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
+          padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
             onTap: () {
               showTextarea();
             },
             child: Image.asset(
               IconMoodEedit,
-              width: 26,
+              width: 30,
             ),
           ),
         )
